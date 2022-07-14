@@ -8,7 +8,6 @@ import plotly.graph_objects as go
 import plotly.express as px
 from dash import no_update
 
-
 # Create a dash application
 app = dash.Dash(__name__)
 
@@ -26,9 +25,7 @@ airline_data =  pd.read_csv('https://cf-courses-data.s3.us.cloud-object-storage.
 year_list = [i for i in range(2005, 2021, 1)]
 
 """Compute graph data for creating yearly airline performance report 
-
 Function that takes airline data as input and create 5 dataframes based on the grouping condition to be used for plottling charts and grphs.
-
 Argument:
      
     df: Filtered dataframe
@@ -51,9 +48,7 @@ def compute_data_choice_1(df):
 
 
 """Compute graph data for creating yearly airline delay report
-
 This function takes in airline data and selected year as an input and performs computation for creating charts and plots.
-
 Arguments:
     df: Input airline data.
     
@@ -114,7 +109,7 @@ app.layout = html.Div(children=[
                                                      placeholder="Select a year",
                                                      style={'width':'80%', 'padding':'3px', 'font-size': '20px', 'text-align-last' : 'center'}),
                                             # Place them next to each other using the division style
-                                            ], style={'display': 'flex'}),  
+                                            ], style={'display': 'flex'})  
                                           ]),
                                 
                                 # Add Computed graphs
@@ -162,7 +157,7 @@ def get_graph(chart, year, children1, children2, c3, c4, c5):
             bar_fig = px.bar(bar_data, x='Month', y='Flights', color='CancellationCode', title='Monthly Flight Cancellation')
             
             # TASK5: Average flight time by reporting airline
-            line_fig = px.line(line_data, x='Month', y='Airtime', color='Reporting_Airline', title='Average monthly flight time (minutes) by airline')
+            line_fig = px.line(line_data, x='Month', y='AirTime', color='Reporting_Airline', title='Average monthly flight time (minutes) by airline')
             
             
             # Percentage of diverted airport landings per reporting airline
@@ -181,7 +176,7 @@ def get_graph(chart, year, children1, children2, c3, c4, c5):
                     geo_scope='usa') # Plot only the USA instead of globe
             
             # TASK6: Number of flights flying to each state from each reporting airline
-            tree_fig = px.treemap(tree_data, path=['DestState', 'Reporting Airline'], 
+            tree_fig = px.treemap(tree_data, path=['DestState', 'Reporting_Airline'], 
                       values='Flights',
                       color='Flights',
                       color_continuous_scale='RdBu',
@@ -213,7 +208,7 @@ def get_graph(chart, year, children1, children2, c3, c4, c5):
                    dcc.Graph(figure=sec_fig), 
                    dcc.Graph(figure=late_fig)]
 
-
 # Run the app
 if __name__ == '__main__':
     app.run_server()
+
